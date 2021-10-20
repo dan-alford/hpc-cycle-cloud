@@ -568,7 +568,7 @@ def main():
                         help="Over-ride CycleCloud hostname for cluster/back-end connections")
 
     parser.add_argument("--createCluster",
-                        dest="createCuster",
+                        dest="createCluster",
                         action="store_true",
                         help="Create a cluster")
 
