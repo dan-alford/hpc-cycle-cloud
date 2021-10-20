@@ -628,7 +628,7 @@ def main():
 def createCluster(subnetId,region):
     
     try:
-        cmd_list = ["cyclecloud", "create_server", "slurm", "slurm_terra_cluster", "-p parameters.json -P SubnetId="+subnetId ,"-P Region="+region]
+        cmd_list = ["cyclecloud", "create_server", "slurm", "slurm_terra_cluster", "-p /tmp/parameters.json -P SubnetId="+subnetId ,"-P Region="+region]
         output = check_output(cmd_list)
         print(cmd_list)
         print(output)
