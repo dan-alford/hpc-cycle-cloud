@@ -628,7 +628,7 @@ def main():
 def createCluster(subnetId,region,username,password):
     
     try:
-        cmd_list = ["/tmp/cluster_create.sh", username,password,subnetId,region]
+        cmd_list = ["bash","/tmp/cluster_create.sh", username,password,subnetId,region]
         output = check_output(cmd_list)
         print(cmd_list)
         print(output)
