@@ -622,33 +622,19 @@ def main():
     #  Create user requires root privileges
     # create_user_credential(args.username, args.publickey)
     if args.createCluster:
-        createCluster(args.subnetId,args.location)
+        createCluster(args.subnetId,args.location,args.username,args.password)
     clean_up()
 
-def createCluster(subnetId,region):
+def createCluster(subnetId,region,username,password):
     
     try:
-        cmd_list = ["git", "clone", "https://github.com/Azure/cyclecloud-slurm.git","/tmp/cc-slurm/"]
+        cmd_list = ["/tmp/cluster_create.sh", username,password,subnetId,region]
         output = check_output(cmd_list)
         print(cmd_list)
         print(output)
     except CalledProcessError as e:
         print("Error Cloming git project")
-    try:
-        cmd_list = ["cyclecloud", "import_template", "-f /tmp/cc-slurm/templates/slurm.txt"]
-        output = check_output(cmd_list)
-        print(cmd_list)
-        print(output)
-    except CalledProcessError as e:
-        print("Error importing template")
-        
-    try:
-        cmd_list = ["cyclecloud", "create_server", "Slurm", "slurm_terra_cluster", "-p parameters.json -P SubnetId="+subnetId ,"-P Region="+region]
-        output = check_output(cmd_list)
-        print(cmd_list)
-        print(output)
-    except CalledProcessError as e:
-        print("Error Creating Cluster")
+    
         
 
 
