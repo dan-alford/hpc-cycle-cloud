@@ -628,13 +628,28 @@ def main():
 def createCluster(subnetId,region):
     
     try:
-        cmd_list = ["cyclecloud", "create_server", "slurm", "slurm_terra_cluster", "-p /tmp/parameters.json -P SubnetId="+subnetId ,"-P Region="+region]
+        cmd_list = ["git", "clone", "https://github.com/Azure/cyclecloud-slurm.git","/tmp/cc-slurm/"]
         output = check_output(cmd_list)
         print(cmd_list)
         print(output)
     except CalledProcessError as e:
-        print("Error getting SSL cert from Lets Encrypt")
-        print("Proceeding with self-signed cert")
+        print("Error Cloming git project")
+    try:
+        cmd_list = ["cyclecloud", "import_template", "-f /tmp/cc-slurm/templates/slurm.txt"]
+        output = check_output(cmd_list)
+        print(cmd_list)
+        print(output)
+    except CalledProcessError as e:
+        print("Error importing template")
+        
+    try:
+        cmd_list = ["cyclecloud", "create_server", "Slurm", "slurm_terra_cluster", "-p parameters.json -P SubnetId="+subnetId ,"-P Region="+region]
+        output = check_output(cmd_list)
+        print(cmd_list)
+        print(output)
+    except CalledProcessError as e:
+        print("Error Creating Cluster")
+        
 
 
 if __name__ == "__main__":
