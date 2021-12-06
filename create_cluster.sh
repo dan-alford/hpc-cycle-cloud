@@ -5,6 +5,6 @@ git clone https://github.com/Azure/cyclecloud-slurm.git /tmp/cc-slurm/
 
 cyclecloud import_template -f /tmp/cc-slurm/templates/slurm.txt
 
-cyclecloud create_cluster Slurm slurm_terra_cluster -p /tmp/parameters.json -P SubnetId=$3 -P Region=$4
+cyclecloud create_cluster $3 -p $4 -P SubnetId=$5 -P Region=$6
 
-cyclecloud start_cluster slurm_terra_cluster
+cyclecloud start_cluster $3
